@@ -1,0 +1,7 @@
+bin/
+doc/
+tmp/
+log/*.log
+.settings/
+.classpath
+.project
