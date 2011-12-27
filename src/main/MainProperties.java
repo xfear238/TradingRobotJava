@@ -60,7 +60,7 @@ public class MainProperties {
 					   .setMainColumnId(mainColumnId)
 					   .setDeltaTime(deltaTime);
 
-			tradingRobot.run();		
+			tradingRobot.run();
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
