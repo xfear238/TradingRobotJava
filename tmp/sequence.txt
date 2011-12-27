@@ -1,0 +1,16 @@
+Main->TradingRobot: createTradingRobot()
+TradingRobot->CSVParserFactory: getCsvParserInstance(filename)
+CSVParserFactory->CSVParser: createParser(filename)
+CSVParser->CSVParser: normalize()
+CSVParser->CSVParser: transform()
+CSVParser->CSVParserFactory: instance
+CSVParserFactory->TradingRobot: instance
+TradingRobot->NeuralNetworkFactory: getNeuralNetworkInstance(inputCount, hiddenCount, outputCount)
+NeuralNetworkFactory->NeuralNetwork: createNeuralNetwork(inputCount, hiddenCount, outputCount)
+NeuralNetwork->NeuralNetwork: addLayers()
+NeuralNetwork->NeuralNetwork: addNeurons()
+NeuralNetwork->NeuralNetworkFactory: instance
+NeuralNetworkFactory->TradingRobot: instance
+TradingRobot->NeuralNetworkExecution: executeNeuralNetwork(neuralnetwork, learningRate, momentum, epochs, delimiter, parser, deltaTime, inputs, mainColumnId)
+NeuralNetworkExecution->NeuralNetworkExecution: exec()
+NeuralNetworkExecution->TradingRobot: results
