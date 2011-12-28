@@ -30,5 +30,9 @@ public class Constants {
 	
 	//Used in PricesRecord class.
 	public static final int MAX_PRICES = 8096;
+	
+	//Neural network parameter.
+	public static final int MAX_WEIGHTS = 100;
+	
 
 }

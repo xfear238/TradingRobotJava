@@ -15,16 +15,16 @@ import neuron.INeuron;
 import neuron.InputNeuron;
 import neuron.HiddenNeuron;
 import neuron.OutputNeuron;
+import utils.Constants;
 
 public class NeuralNetwork {
 	
 	static Logger logger = Logger.getLogger(NeuralNetwork.class);
 	
-	private ArrayList<Layer> layers;
-	private static final int MAX_WEIGHTS = 100;
+	private ArrayList<Layer> layers = new ArrayList<Layer>();
 	private int layercount = 0;
-	private double[][] weights;
-	private ArrayList<double[][]> weightsList;
+	private double[][] weights = new double[Constants.MAX_WEIGHTS][Constants.MAX_WEIGHTS];
+	private ArrayList<double[][]> weightsList = new ArrayList<double[][]>(1000);
 	private int weightsListCurrent = 0;
 	
 	public void addLayer(Layer layer) {
@@ -47,8 +47,8 @@ public class NeuralNetwork {
 		weightsListCurrent = 0;
 		weightsList.clear();
 		
-		for(int i=0;i<MAX_WEIGHTS;i++)
-			for (int j=0;j<MAX_WEIGHTS;j++)
+		for(int i=0;i<Constants.MAX_WEIGHTS;i++)
+			for (int j=0;j<Constants.MAX_WEIGHTS;j++)
 				weights[i][j] = (double) (Math.random() - 0.5);
 	    
 	    weightsList.add(0, weights);
@@ -72,12 +72,9 @@ public class NeuralNetwork {
 		
 		DOMConfigurator.configure("xml/LogNeuralNetwork.xml");
 		logger.debug("Neural Network created");
-		weights = new double[MAX_WEIGHTS][MAX_WEIGHTS];
-		weightsList = new ArrayList<double[][]>(1000);
-		layers = new ArrayList<Layer>();
 		
-		for(int i=0;i<MAX_WEIGHTS;i++)
-			for (int j=0;j<MAX_WEIGHTS;j++)
+		for(int i=0;i<Constants.MAX_WEIGHTS;i++)
+			for (int j=0;j<Constants.MAX_WEIGHTS;j++)
 				weights[i][j] = (double) (Math.random() - 0.5);
 	    
 	    weightsList.add(0, weights);
@@ -85,11 +82,8 @@ public class NeuralNetwork {
 	}
 	
 	public NeuralNetwork(int inputCount, int hiddenCount, int outputCount) {
-		DOMConfigurator.configure("xml/LogNeuralNetwork.xml");
-		logger.debug("Neural Network created");
-		weights = new double[MAX_WEIGHTS][MAX_WEIGHTS];
-		layers = new ArrayList<Layer>();
-		weightsList = new ArrayList<double[][]>(1000);
+		
+		this();
 		
 		Layer inputLayer = new Layer();
 		Layer hiddenLayer = new Layer();
@@ -105,7 +99,6 @@ public class NeuralNetwork {
 			hiddenLayer.addNeuron(neuron);
 		}
 		
-
 		for(int i=0; i<=outputCount; i++) {
 			INeuron neuron = new OutputNeuron();
 			outputLayer.addNeuron(neuron);
@@ -114,14 +107,6 @@ public class NeuralNetwork {
 		addLayer(inputLayer);
 		addLayer(hiddenLayer);
 		addLayer(outputLayer);
-		
-		 //Initialization of the weights
-	    for(int i=0;i<MAX_WEIGHTS;i++)
-			for (int j=0;j<MAX_WEIGHTS;j++)
-				weights[i][j] = (double) (Math.random() - 0.5);
-	    
-	    weightsList.add(0, weights);
-	    addWeights(weights);
 		
 	}
 	
@@ -172,23 +157,19 @@ public class NeuralNetwork {
 		for(int i=0 ; i<=hiddenCount; i++) {
 			//i ranges between 0 and hiddenNeuronsNumber
 			if(i == hiddenCount) {
-				//weights[0][hiddenCount] += learningRate * 1 * deltas[hiddenCount];
 				weights[0][hiddenCount] = weights[0][hiddenCount] + (1-momentum) * learningRate * 1 * deltas[hiddenCount] + momentum * (weights[0][hiddenCount] - weightsList.get(weightsListCurrent-1)[0][hiddenCount]);
 						
 				for(int j=0; j <hiddenCount; j++) {
-	                //weights[j+1][hiddenCount] += learningRate * signet[j] * deltas[hiddenCount];
-					weights[j+1][hiddenCount] = weights[j+1][hiddenCount] + (1-momentum) * learningRate * signet[j] * deltas[hiddenCount] + momentum * (weights[j+1][hiddenCount] - weightsList.get(weightsListCurrent-1)[j+1][hiddenCount]);
+	                weights[j+1][hiddenCount] = weights[j+1][hiddenCount] + (1-momentum) * learningRate * signet[j] * deltas[hiddenCount] + momentum * (weights[j+1][hiddenCount] - weightsList.get(weightsListCurrent-1)[j+1][hiddenCount]);
 	            }
 			}
 			else {
 				
-				//weights[0][i] += learningRate * 1 * deltas[i];
 				weights[0][i] = weights[0][i] + (1-momentum) * learningRate * 1 * deltas[i] + momentum * (weights[0][i] - weightsList.get(weightsListCurrent-1)[0][i]);
 
 	            for(int k = 0; k < inputCount; k++)
 	            {
-	                //weights[k+1][i] += learningRate * input[k] * deltas[i]; // k+1 a cause du bias
-	            	weights[k+1][i] = weights[k+1][i] + (1-momentum) * learningRate * input[k] * deltas[i] + momentum * (weights[k+1][i] -  weightsList.get(weightsListCurrent-1)[k+1][i]);
+	               weights[k+1][i] = weights[k+1][i] + (1-momentum) * learningRate * input[k] * deltas[i] + momentum * (weights[k+1][i] -  weightsList.get(weightsListCurrent-1)[k+1][i]);
 	            }
 			}
 		}
@@ -206,7 +187,6 @@ public class NeuralNetwork {
 		int inputCount = getLayers().get(0).getCount();
 		int hiddenCount = getLayers().get(1).getCount();
 		
-		//inputNeuronsNumber => not very efficient
 		for(int i=0; i<inputCount; i++) {
 			input[i] = inputValues[i];
 		}
