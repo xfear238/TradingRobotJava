@@ -1,18 +1,18 @@
-19:21:08 | Learning Rate = 0.1
-19:21:08 | Momentum = 0.9
-19:21:08 | Epochs = 5000
-19:21:08 | Percentage = 90
-19:21:08 | Delimiter = 2223
-19:21:08 | Delta Time = 1
-19:21:08 | Desired Inputs[0] = 2
-19:21:08 | Desired Inputs[1] = 2
-19:21:08 | Desired Inputs[2] = 2
-19:21:08 | Desired Inputs[3] = 2
-19:21:08 | Desired Inputs[4] = 0
-19:21:08 | Main Column Id = 3
-19:21:08 | Main Column Id Max Value = 36.04
-19:21:08 | Percentage = 90
-19:21:08 | Delimiter = 2223
-19:21:08 | Main Column Id Max Value = 36.04
-19:21:50 | Best epoch : 56
-19:21:50 | UPDATE = 6.735
+19:27:51 | Learning Rate = 0.1
+19:27:51 | Momentum = 0.9
+19:27:51 | Epochs = 5000
+19:27:51 | Percentage = 95
+19:27:51 | Delimiter = 2346
+19:27:51 | Delta Time = 1
+19:27:51 | Desired Inputs[0] = 2
+19:27:51 | Desired Inputs[1] = 2
+19:27:51 | Desired Inputs[2] = 2
+19:27:51 | Desired Inputs[3] = 2
+19:27:51 | Desired Inputs[4] = 0
+19:27:51 | Main Column Id = 3
+19:27:51 | Main Column Id Max Value = 36.04
+19:27:51 | Percentage = 95
+19:27:51 | Delimiter = 2346
+19:27:51 | Main Column Id Max Value = 36.04
+19:28:34 | Best epoch : 71
+19:28:34 | UPDATE = 6.735

@@ -9,6 +9,7 @@ import csvparser.UnknownColumnException;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
+import utils.Constants;
 import utils.Utils;
 import layer.Layer;
 import neuron.INeuron;
@@ -19,11 +20,9 @@ import neuron.OutputNeuron;
 public class NeuralNetwork {
 
 	static Logger logger = Logger.getLogger(NeuralNetwork.class);
-
 	private ArrayList<Layer> layers = new ArrayList<Layer>();
-	private static final int MAX_WEIGHTS = 100;
 	private int layercount = 0;
-	private double[][] weights = new double[MAX_WEIGHTS][MAX_WEIGHTS];
+	private double[][] weights = new double[Constants.MAX_WEIGHTS][Constants.MAX_WEIGHTS];
 	private ArrayList<double[][]> weightsList = new ArrayList<double[][]>(1000);
 	private int weightsListCurrent = 0;
 
@@ -41,14 +40,13 @@ public class NeuralNetwork {
 		return layercount;
 	}
 
-	//To be checked
 	public void resetWeights() {
 
 		weightsListCurrent = 0;
 		weightsList.clear();
 
-		for(int i=0;i<MAX_WEIGHTS;i++)
-			for (int j=0;j<MAX_WEIGHTS;j++)
+		for(int i=0;i<Constants.MAX_WEIGHTS;i++)
+			for (int j=0;j<Constants.MAX_WEIGHTS;j++)
 				weights[i][j] = (double) (Math.random() - 0.5);
 
 	    weightsList.add(0, weights);
@@ -73,8 +71,8 @@ public class NeuralNetwork {
 		DOMConfigurator.configure("xml/LogNeuralNetwork.xml");
 		logger.debug("Neural Network created");
 
-		for(int i=0;i<MAX_WEIGHTS;i++)
-			for (int j=0;j<MAX_WEIGHTS;j++)
+		for(int i=0;i<Constants.MAX_WEIGHTS;i++)
+			for (int j=0;j<Constants.MAX_WEIGHTS;j++)
 				weights[i][j] = (double) (Math.random() - 0.5);
 
 	    weightsList.add(0, weights);
@@ -245,7 +243,6 @@ public class NeuralNetwork {
 				}
 			}
 
-
 			if(mainColumnIdMaxValue == 0)
 				throw new MainColumnIdMaxValueException();
 
@@ -259,7 +256,6 @@ public class NeuralNetwork {
 			errorRate += Math.abs(trueValue-runningValue);
 
 	        inputIteratorAll = 0;
-
 		}
 
 		errorRate /= (end-delimiter);
