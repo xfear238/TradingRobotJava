@@ -217,29 +217,11 @@ public class NeuralNetwork {
 	public double error(int delimiter, CSVParser csvparser, int deltaTime, int[] desiredInputs, int mainColumnId, double mainColumnIdMaxValue) throws UnknownColumnException, InvalidStateOfParser, MainColumnIdMaxValueException {
 		
 		int end = csvparser.countLines()-deltaTime;
-		double[] input = new double[1024];
-		int desiredInputsCountSize = desiredInputs.length;
-		int tmpVar;
 		double runningValue = 0, trueValue = 0, errorRate = 0;
-		int inputIteratorAll = 0;
 
-		for(int i=delimiter; i<end; i++){
+		for(int i=delimiter; i<end; i++) {
 			
-			for(int j=0; j < desiredInputsCountSize; j++) {
-				tmpVar = desiredInputs[j]-1;
-				
-				for(int inputIterator=0; inputIterator<desiredInputs[j]; inputIterator++) {
-					
-					if(csvparser.isFilled())
-						input[inputIteratorAll] = csvparser.getValue(i-tmpVar, j);	
-					else
-						throw new InvalidStateOfParser();
-					
-					tmpVar--;
-	                inputIteratorAll++;
-				}
-			}
-			
+			double[] input = buildInput(delimiter, desiredInputs, csvparser);
 			
 			if(mainColumnIdMaxValue == 0)
 				throw new MainColumnIdMaxValueException();
@@ -252,9 +234,7 @@ public class NeuralNetwork {
 				throw new InvalidStateOfParser();
 			
 			errorRate += Math.abs(trueValue-runningValue);
-	        
-	        inputIteratorAll = 0;
-			
+		
 		}
 		     
 		errorRate /= (end-delimiter);
@@ -263,9 +243,6 @@ public class NeuralNetwork {
 
 	public void trainProcess(int delimiter, int[] desiredInputs, CSVParser csvparser, int mainColumnId, int deltaTime, double learningRate, double momentum) throws InterruptedException, InvalidStateOfParser {
 		
-		double[] input = new double[1024];
-        int tmpVar;
-        int inputIteratorAll = 0;
         int maxDesiredInputs = 0;
         int desiredInputsCountSize = desiredInputs.length;
         
@@ -273,41 +250,33 @@ public class NeuralNetwork {
             if(desiredInputs[i] > maxDesiredInputs)
                 maxDesiredInputs = desiredInputs[i];
 
-        for(int i = maxDesiredInputs; i < delimiter; i++)
-        {
-            for(int j = 0; j < desiredInputsCountSize; j++) {
-               
-            	tmpVar = desiredInputs[j]-1;
-
-                for(int inputIterator = 0; inputIterator < desiredInputs[j]; inputIterator++) {
-                	
-                	if(csvparser.isFilled())
-						input[inputIteratorAll] = csvparser.getValue(i-tmpVar, j);	
-					
-                    tmpVar--;
-                    inputIteratorAll++;
-                }
-
-            }
+        for(int i = maxDesiredInputs; i < delimiter; i++) {
+        	
+        	double[] input = buildInput(delimiter, desiredInputs, csvparser);
             
             if(csvparser.isFilled())
             	train(input, csvparser.getValue(i+deltaTime, mainColumnId), learningRate, momentum);
             else
             	throw new InvalidStateOfParser();
             
-            inputIteratorAll = 0;
         }
 	}
-	
+		
 	public double runningProcess(int delimiter, int[] desiredInputs, CSVParser csvparser, int mainColumnId, double mainColumnIdMaxValue) throws UnknownColumnException, InvalidStateOfParser {
 		
-		double[] input = new double[1024];
+		double[] input = buildInput(delimiter, desiredInputs, csvparser);
+	    double runningValue = run(input)*mainColumnIdMaxValue;
+	    return runningValue;
+	}
+	
+	public double[] buildInput(int delimiter, int[] desiredInputs, CSVParser csvparser) throws InvalidStateOfParser {
+		
+		int desiredInputsCountSize = desiredInputs.length;
 	    int tmpVar;
-	    double runningValue = 0;
+	    double[] input = new double[1024];
 	    int inputIteratorAll = 0;
-	    int desiredInputsCountSize = desiredInputs.length;
-
-	    for(int j = 0; j < desiredInputsCountSize; j++) {
+	    
+		for(int j = 0; j < desiredInputsCountSize; j++) {
 	    	tmpVar = desiredInputs[j]-1;
 
 	        for(int inputIterator = 0; inputIterator < desiredInputs[j]; inputIterator ++) {
@@ -321,11 +290,10 @@ public class NeuralNetwork {
                 inputIteratorAll++;
 	        }
 	    }
-
-	    runningValue = run(input)*mainColumnIdMaxValue;
-	    inputIteratorAll = 0;
-	    return runningValue;
+		
+		return input;
 	}
+
 	
 	public NeuralNetwork createInputLayer(int inputCount) {
 		
