@@ -2,6 +2,5 @@ package robot;
 
 public interface IRobot {
 
-	public void run();
-	
+	public void run();	
 }

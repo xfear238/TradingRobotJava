@@ -1,6 +1,5 @@
 package main;
 
-import robot.ArgsException;
 import robot.TradingRobot;
 import robot.TradingRobotFactory;
 import utils.Constants;

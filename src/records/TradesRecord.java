@@ -10,7 +10,7 @@ public class TradesRecord implements Record {
 
 	static Logger logger = Logger.getLogger(TradesRecord.class);
 	
-	List<Trade> trades = new ArrayList<Trade>();
+	private List<Trade> trades = new ArrayList<Trade>();
 	private int count = 0;
 	
 	public TradesRecord() {
@@ -18,11 +18,10 @@ public class TradesRecord implements Record {
 	}
 	
 	@Override
-	public void saveTrade(double priceIn, double pricePredicted, int volume, String position) {
-		Trade trade = new Trade(null, priceIn, pricePredicted, volume, position);
+	public void saveTrade(String ref, double priceIn, double pricePredicted, int volume, String position) {
+		Trade trade = new Trade(ref, priceIn, pricePredicted, volume, position);
 		trades.add(trade);
 		count++;
-		//System.out.println("Trade recorded");
 		logger.debug("trade recorded");
 	}
 	
@@ -41,8 +40,7 @@ public class TradesRecord implements Record {
 
 	@Override
 	public void update(double price) {
-		logger.debug("UPDATE : = " + price);
-		//System.out.println("UPDATE : " + price);
+		logger.debug("UPDATE = " + price);
 		updateLastTrade(price);
 	}
 

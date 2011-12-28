@@ -131,10 +131,10 @@ public class TradingRobot implements IRobot {
 				pricesrecord.addPrice(lastKnownValue);
 				
 				if(lastKnownValue <= predictedFutureValue) {
-					tradesrecord.saveTrade(lastKnownValue, predictedFutureValue, Constants.VOLUME, "BUY");
+					tradesrecord.saveTrade("Credit-agricole", lastKnownValue, predictedFutureValue, Constants.VOLUME, "BUY");
 				}
 				else {
-					tradesrecord.saveTrade(lastKnownValue, predictedFutureValue, Constants.VOLUME, "SELL");
+					tradesrecord.saveTrade("Credit-agricole", lastKnownValue, predictedFutureValue, Constants.VOLUME, "SELL");
 				}
 				
 				tradesrecord.debug();
@@ -160,7 +160,6 @@ public class TradingRobot implements IRobot {
 		}
 		
 	}
-	
 	
 	public TradingRobot setFilename(String filename) {
 		this.filename = filename;

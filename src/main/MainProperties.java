@@ -2,8 +2,6 @@ package main;
 
 import java.io.FileInputStream;
 import java.util.Properties;
-
-import robot.ArgsException;
 import robot.TradingRobot;
 import robot.TradingRobotFactory;
 
@@ -36,7 +34,7 @@ public class MainProperties {
 			   || epochs == 0
 			   || delimiter == 0
 			   || deltaTime == 0)
-				throw new ArgsException();
+				throw new PropertiesException();
 			
 			System.out.println("USAGE OF PROPERTIES");
 			System.out.println("filename = " + filename);

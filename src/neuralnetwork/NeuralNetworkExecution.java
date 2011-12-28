@@ -13,20 +13,27 @@ public class NeuralNetworkExecution {
 	
 	static Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
 	
-	private double learningRate;
-	private double momentum;
-	private int epochs;
-	private int delimiter;
-	private int deltaTime;
-	private int percentage;
-	private int[] desiredInputs;
-	private int mainColumnId;
+	private double learningRate = 0.1;
+	private double momentum = 0.9;
+	private int epochs = 100000;
+	private int delimiter; //Initialized in constructor
+	private int deltaTime = 1;
+	private int percentage; //Initialized in constructor
+	private int[] desiredInputs; //Initialized in setCSVParser()
+	private int mainColumnId; // //Initialized in setCSVParser()
 	private NeuralNetwork neuralnetwork;
 	private CSVParser csvparser;
 	private double mainColumnIdMaxValue = 0;
 
 	public NeuralNetworkExecution() {
 		DOMConfigurator.configure("xml/LogNeuralNetworkExecution.xml");
+		
+		try {
+			setDelimiter(90);
+		} catch (InvalidPercentageException e) {
+			System.exit(0);
+		}
+	
 	}
 	
 	public void exec() throws DelimiterOutOfBoundsException, UnknownColumnException, InterruptedException, InvalidStateOfParser, MainColumnIdMaxValueException {
@@ -134,6 +141,11 @@ public class NeuralNetworkExecution {
 	
 	public NeuralNetworkExecution setParser(CSVParser csvparser) {
 		this.csvparser = csvparser;
+		
+		for(int i=0; i<csvparser.countColumns(); i++) {
+			
+		}
+		
 		return this;
 	}
 	
@@ -145,7 +157,7 @@ public class NeuralNetworkExecution {
 	
 	public NeuralNetworkExecution setDesiredInputs(int[] desiredInputs) {
 		for(int i=0; i<csvparser.countColumns(); i++)
-		logger.debug("Desired Inputs["+i+"] = " + desiredInputs[i]);
+			logger.debug("Desired Inputs["+i+"] = " + desiredInputs[i]);
 		this.desiredInputs = desiredInputs;
 		return this;
 	}

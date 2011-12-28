@@ -4,13 +4,13 @@ import java.util.*;
 import java.io.*;
 
 public abstract class FileMonitor extends TimerTask {
-	private long timeStamp;
+	
+	private long timeStamp = 0;
 	private boolean lock = false;
 	private File file;
 	
 	public FileMonitor(File file) {
 		this.file = file;
-		this.timeStamp = 0;
 	}
 	
 	public void run() {

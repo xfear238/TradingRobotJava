@@ -2,13 +2,14 @@ package csvparser;
 
 import java.io.IOException;
 
+import utils.Constants;
+
 /*Thread threadUpdateCSV = new Thread(new UpdateCSVFileRunnable("files/credit_agricole_read.csv", this.filename, 100000));
 threadUpdateCSV.start();*/
 @Deprecated
 public class UpdateCSVFileRunnable extends UpdateCSVFile implements Runnable {
 
-	private static int DEFAULT_MS = 200000;
-	protected int ms = DEFAULT_MS;
+	protected int ms = Constants.DEFAULT_MS;
 	
 	public UpdateCSVFileRunnable(String readFilename, String writeFilename) {
 		super(readFilename, writeFilename);
@@ -44,7 +45,6 @@ public class UpdateCSVFileRunnable extends UpdateCSVFile implements Runnable {
 	
 	@Override
 	public void run() {
-		System.out.println("Call to run()");
 		updateRunnable();
 		close();
 	}

@@ -3,12 +3,13 @@ package records;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.Constants;
+
 public class PricesRecord {
 
-	private final static int MAX_PRICES = 8096;
-	private double[] prices = new double[MAX_PRICES];
+	private double[] prices = new double[Constants.MAX_PRICES];
 	private int count = 0;
-	List<Record> observers = new ArrayList<Record>();
+	private List<Record> observers = new ArrayList<Record>();
 	
 	public void addPrice(double price) {
 		System.out.println("Prices records updated");
@@ -34,10 +35,6 @@ public class PricesRecord {
 	
 	public double getPreviousPrice() {
 		return prices[count-2];
-	}
-	
-	public PricesRecord() {
-		
 	}
 	
 	public void registerObserver(Record observer) {

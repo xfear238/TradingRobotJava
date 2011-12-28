@@ -2,7 +2,7 @@ package records;
 
 public interface Record {
 
-	void saveTrade(double priceIn, double pricePredicted, int count, String position);
+	void saveTrade(String ref, double priceIn, double pricePredicted, int count, String position);
 	
 	void updateLastTrade(double priceOut);
 	

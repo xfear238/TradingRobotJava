@@ -1,9 +1,11 @@
 package csvparser;
 
+import utils.Constants;
+
 public interface ICSVParser {
 	
-	final int MAX_LINES = 4000;
-	final int MAX_COLUMNS = 20;
+	final int MAX_LINES = Constants.MAX_LINES;
+	final int MAX_COLUMNS = Constants.MAX_COLUMNS;
 	
 	public boolean isFilled();
 	

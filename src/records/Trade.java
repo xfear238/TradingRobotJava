@@ -5,15 +5,18 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 public class Trade {
 	
-	static Logger logger = Logger.getLogger(Trade.class);
+	private static Logger logger = Logger.getLogger(Trade.class);
 	
-	private String ref;
+	private String ref = "";
 	private double priceIn;
 	private double priceOut;
 	private double pricePredicted = 0;
-	private int volume;
-	private int position = 0;
+	private int volume = 1;
+	private String position;
 	private boolean isClosed = false;
+	
+	@SuppressWarnings("unused")
+	private Trade() {}
 	
 	public Trade(String ref, double priceIn, double pricePredicted, int volume, String position) {
 		DOMConfigurator.configure("xml/TradesRecord.xml");
@@ -21,27 +24,28 @@ public class Trade {
 		setPriceIn(priceIn);
 		setPricePredicted(pricePredicted);
 		setVolume(volume);
-		setPosition(position);
+		try {
+			setPosition(position);
+		} catch (InvalidPosition e) {
+			System.exit(0);
+		}
 		setClosed(false);
 		
 	}
 	
-	public void setPosition(String strPosition) {
-		
-		if(strPosition.equals("BUY")) {
-			position = 1;
+	public void setPosition(String position) throws InvalidPosition {
+		if(position.equals("BUY")) {
+			this.position = "BUY";
 		}
-		else if(strPosition.equals("SELL")) {
-			position = 2;
+		else if(position.equals("SELL")) {
+			this.position = "SELL";
 		}
+		else
+			throw new InvalidPosition(position);
 	}
 	
 	public String getPosition() {
-		if(position == 1)
-			return "BUY";
-		else if(position == 2)
-			return "SELL";
-		return null;
+		return position;
 	}
 
 	public String getRef() {
