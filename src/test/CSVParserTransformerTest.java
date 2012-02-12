@@ -49,7 +49,7 @@ public class CSVParserTransformerTest {
 		System.out.println("Call - CSVParserTransformerGetCSVParserTest()");
 		
 		try {
-					
+
 			CSVParser csvparser = new CSVParser("files/test.csv");
 			CSVParserTransformer csvparserTransformer = new CSVParserTransformerNormalization(csvparser);
 			CSVParser csvParser2 = csvparserTransformer.getCSVParser();

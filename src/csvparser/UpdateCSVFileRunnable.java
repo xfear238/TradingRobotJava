@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import utils.Constants;
 
-/*Thread threadUpdateCSV = new Thread(new UpdateCSVFileRunnable("files/credit_agricole_read.csv", this.filename, 100000));
-threadUpdateCSV.start();*/
 @Deprecated
 public class UpdateCSVFileRunnable extends UpdateCSVFile implements Runnable {
 

@@ -10,23 +10,28 @@ import utils.Constants;
 public abstract class CSVParserTransformer implements ICSVParser {
 	
 	protected double[][] transformedValues = new double[MAX_LINES][MAX_COLUMNS];
-	protected int countLines;
-	protected int countColumns;
 	protected boolean isFilledTransformed = false;
 	protected CSVParser csvparser;
 	
 	public abstract void transform();
 	
-	public CSVParserTransformer(CSVParser csvparser) {
+	private void init(CSVParser csvparser) {
 		this.csvparser = csvparser;
-		this.countLines = csvparser.countLines();
-		this.countColumns = csvparser.countColumns();
+		
+		System.out.println("CSVParserTransformer - countLines = " + csvparser.countLines());
+		System.out.println("CSVParserTransformer - countColumns = " + csvparser.countColumns());
+	}
+	
+	public CSVParserTransformer(CSVParser csvparser) {
+		init(csvparser);
+		csvparser.registerTransformer(this);
+		transform();
 	}
 	
 	public void debug() {
 		if(isFilledTransformed) {
-			for(int x = 0; x < this.countLines-1; x++) {
-				for(int y = 0; y < this.countColumns; y++)
+			for(int x = 0; x < csvparser.countLines(); x++) {
+				for(int y = 0; y < csvparser.countColumns(); y++)
 					System.out.print(transformedValues[x][y] + " ");
 				System.out.println("");
 			}
@@ -36,15 +41,15 @@ public abstract class CSVParserTransformer implements ICSVParser {
 	public void write(String filename) throws IOException {
 		if(isFilledTransformed) {
 			PrintWriter writer =  new PrintWriter(new BufferedWriter(new FileWriter(filename)));
-			for(int x = 0; x < this.countLines-1; x++) {
-				for(int y = 0; y < this.countColumns; y++) {
-					if(y == this.countColumns-1) //Last column
+			for(int x = 0; x < csvparser.countLines(); x++) {
+				for(int y = 0; y < csvparser.countColumns(); y++) {
+					if(y == csvparser.countColumns()-1) //Last column
 						writer.print(transformedValues[x][y]);
 					else
 						writer.print(transformedValues[x][y] + Constants.SEPARATOR);
 				}
 				
-				if(x != this.countLines-2)	//Last line
+				if(x != csvparser.countLines()-2)	//Last line
 					writer.println("");
 			}
 			writer.close();
@@ -54,8 +59,8 @@ public abstract class CSVParserTransformer implements ICSVParser {
 	public CSVParser getCSVParser() throws InvalidStateOfParser {
 		if(!isFilledTransformed)
 			throw new InvalidStateOfParser();
-		CSVParser csvparser = new CSVParser(null, this.countLines, this.countColumns, this.transformedValues);
-		return csvparser;
+		CSVParser csvparserResult = new CSVParser(csvparser.filename, this.csvparser.countLines(), this.csvparser.countColumns(), this.transformedValues);
+		return csvparserResult;
 	}
 	
 	public boolean isFilled() {
@@ -71,10 +76,24 @@ public abstract class CSVParserTransformer implements ICSVParser {
 	}
 
 	public int countColumns() {
-		return countColumns;
+		return csvparser.countColumns();
 	}
 
 	public int countLines() {
-		return countLines;
+		return csvparser.countLines();
+	}
+
+	public void update() {
+		System.out.println("CSVParserTransformer - Update()");
+		init(csvparser);
+		transform();
+	}
+	
+	public boolean isTransformed() {
+		return isFilledTransformed;
+	}
+	
+	public void setTransformed(boolean isFilledTransformed) {
+		this.isFilledTransformed = isFilledTransformed;
 	}
 }

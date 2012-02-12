@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 import utils.Constants;
-import utils.Utils;
 import layer.Layer;
 import neuron.INeuron;
 import neuron.InputNeuron;
@@ -23,7 +22,11 @@ public class NeuralNetwork {
 	private ArrayList<Layer> layers = new ArrayList<Layer>();
 	private int layercount = 0;
 	private double[][] weights = new double[Constants.MAX_WEIGHTS][Constants.MAX_WEIGHTS];
+	private double[][] savedweights = new double[Constants.MAX_WEIGHTS][Constants.MAX_WEIGHTS];
+	
 	private ArrayList<double[][]> weightsList = new ArrayList<double[][]>(1000);
+	private ActivationFunction activationfunction = null;
+	
 	private int weightsListCurrent = 0;
 
 	public void addLayer(Layer layer) {
@@ -31,13 +34,30 @@ public class NeuralNetwork {
 		layercount++;
 		logger.debug("layer added");
 	}
-
+	
+	public void saveWeights() {
+		for(int i=0;i<Constants.MAX_WEIGHTS;i++)
+			for (int j=0;j<Constants.MAX_WEIGHTS;j++)
+				savedweights[i][j] = weights[i][j];
+	}
+	
+	public void loadWeights() {
+		for(int i=0;i<Constants.MAX_WEIGHTS;i++)
+			for (int j=0;j<Constants.MAX_WEIGHTS;j++)
+				weights[i][j] = savedweights[i][j];
+	}
+	
 	public ArrayList<Layer> getLayers() {
 		return layers;
 	}
 
 	public int getLayerCount() {
 		return layercount;
+	}
+	
+	public NeuralNetwork addActivationFunction(ActivationFunction activationfunction) {
+		this.activationfunction = activationfunction;
+		return this;
 	}
 
 	public void resetWeights() {
@@ -132,7 +152,7 @@ public class NeuralNetwork {
 		}
 
 		for(int i=0; i<hiddenCount; i++) {
-			signet[i] = Utils.sigmoid(net[i]);
+			signet[i] = activationfunction.calculate(net[i]);
 		}
 
 		out  = 1 * weights[0][hiddenCount];
@@ -141,7 +161,7 @@ public class NeuralNetwork {
 			out += signet[i] * weights[i+1][hiddenCount]; //i+1 a cause du bias
 		}
 
-		out = Utils.sigmoid(out);
+		out = activationfunction.calculate(out);
 
 		deltas[hiddenCount] = out*(1-out)*(trueValue-out);
 
@@ -203,7 +223,7 @@ public class NeuralNetwork {
 		}
 
 		for(int i=0; i<hiddenCount; i++) {
-			signet[i] = Utils.sigmoid(net[i]);
+			signet[i] = activationfunction.calculate(net[i]);
 		}
 
 		out  = 1 * weights[0][hiddenCount];
@@ -212,7 +232,7 @@ public class NeuralNetwork {
 			out += signet[i] * weights[i+1][hiddenCount]; //i+1 a cause du bias
 		}
 
-		out = Utils.sigmoid(out);
+		out = activationfunction.calculate(out);
 
 		return out;
 	}

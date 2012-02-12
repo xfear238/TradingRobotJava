@@ -8,7 +8,7 @@ public class Constants {
 	public final static int ARGS_COUNT = 9;
 	
 	//Used in the computation of the error of the neural network convergence.
-	public static final double INT_MAX = 1000000;
+	public static final double INT_MAX = 1000000.0;
 	
 	//If this constant is changed, the neural kernel has to refactored.
 	public static final int OUTPUT_COUNT = 1;
@@ -20,7 +20,7 @@ public class Constants {
 	
 	//Used in executing the trades.
 	public static final int VOLUME = 1;
-	
+
 	//Parser variables.
 	public static final int MAX_LINES = 4000;
 	public static final int MAX_COLUMNS = 20;
@@ -32,7 +32,7 @@ public class Constants {
 	public static final int MAX_PRICES = 8096;
 	
 	//Neural network parameter.
-	public static final int MAX_WEIGHTS = 100;
+	public static final int MAX_WEIGHTS = 30;
 	
 
 }

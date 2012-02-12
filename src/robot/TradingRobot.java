@@ -1,16 +1,17 @@
 package robot;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import records.PricesRecord;
 import records.TradesRecord;
 import utils.Constants;
+import utils.NeuralModeExecutionEnum;
 
-import neuralnetwork.DelimiterOutOfBoundsException;
-import neuralnetwork.InvalidPercentageException;
-import neuralnetwork.MainColumnIdMaxValueException;
+import neuralnetwork.ActivationFunctionLinear;
+import neuralnetwork.ActivationFunctionSigmoid;
+import neuralnetwork.Multiplier;
 import neuralnetwork.NeuralNetwork;
 import neuralnetwork.NeuralNetworkExecution;
 import neuralnetwork.NeuralNetworkExecutionFactory;
@@ -19,15 +20,14 @@ import neuralnetwork.NeuralNetworkFactory;
 import csvparser.CSVParser;
 import csvparser.CSVParserTransformer;
 import csvparser.CSVParserTransformerNormalization;
-import csvparser.InvalidCSVFile;
-import csvparser.InvalidStateOfParser;
-import csvparser.UnknownColumnException;
+import csvparser.CSVParserTransformerPercentage;
+
 import filemonitoring.FileMonitorRobot;
 
-public class TradingRobot implements IRobot {
 
-	private static final int EXEC_RETURN = 1;
-	private static final int EXEC_NO_RETURN = 2;
+//Normaliser ce putin de pourcentage !!!!!!!!
+public class TradingRobot implements IRobot {
+	
 	
 	private String filename;
 	private String desiredInputs;
@@ -35,16 +35,16 @@ public class TradingRobot implements IRobot {
 	private int deltaTime;
 	private int mainColumnId;
 	private int epochs;
-	private int delimiter;
+	private int percentage;
 	private double learningRate;
 	private double momentum;
 	private CSVParser csvParser;
+	private CSVParserTransformer csvparsertransformer;
 	private NeuralNetworkExecution neuralnetworkexecution;
-	private int mode = EXEC_RETURN;
 	private PricesRecord pricesrecord = new PricesRecord();
 	private TradesRecord tradesrecord = new TradesRecord();
+	private NeuralModeExecutionEnum neuralModeExecution = NeuralModeExecutionEnum.FIND_BEST_ERROR_DISP;
 	
-	@SuppressWarnings("static-access")
 	public void run() {
 		
 		try {
@@ -64,100 +64,76 @@ public class TradingRobot implements IRobot {
 			
 			NeuralNetwork neuralnetwork = NeuralNetworkFactory.createInstance()
 															  .createInputLayer(inputCount)
+															  .addActivationFunction(new ActivationFunctionSigmoid())
 															  .createHiddenLayer(hiddenCount)
 															  .createOuputLayer(Constants.OUTPUT_COUNT);
 			
-			CSVParserTransformer csvparserTransformer = new CSVParserTransformerNormalization(csvParser);
-			CSVParser csvParser2 = csvparserTransformer.getCSVParser();
+			csvparsertransformer = new CSVParserTransformerNormalization(csvParser);
 			
 			neuralnetworkexecution = NeuralNetworkExecutionFactory.createInstance()
-																  .setParser(csvParser2)
+																  .setParser(csvparsertransformer.getCSVParser())
+																  .setMultiplier(new Multiplier(csvParser.getMaxValueFromColumn(mainColumnId)))
+																  .setRawCsvParser(csvParser)
 																  .setNeuralNetwork(neuralnetwork)
 																  .setLearningRate(learningRate)
 																  .setMomentum(momentum)
 																  .setEpochs(epochs)
-																  .setDelimiter(delimiter)
+																  .setPercentageTrainingTesting(percentage)
 																  .setDeltaTime(deltaTime)
 																  .setDesiredInputs(intDesiredInputs)
-																  .setMainColumnId(mainColumnId)
-																  .setMaximumOfMainColumnId(csvParser.getMaxValueFromColumn(mainColumnId));
+																  .setMainColumnId(mainColumnId);
 			
-			//Pattern observer
 			pricesrecord.registerObserver(tradesrecord);
-			
 			TimerTask task = new FileMonitorRobot(new File(filename), this);
 			
 			while(true) {
 				task.run();
-				Thread.currentThread().sleep(Constants.LATENCY_ON_DETECTING_FILE_MODIFICATION);
+				Thread.sleep(Constants.LATENCY_ON_DETECTING_FILE_MODIFICATION);
 			}
 			
-		} catch (IOException 
-				| InvalidCSVFile 
-				| UnknownColumnException 
-				| InvalidPercentageException 
-				| InvalidStateOfParser 
-				| InterruptedException e) {
-		}
+		} catch (Exception e) {}
 	}
 	
 	public void onChange() {
+		
+		System.out.println("File has changed... Locking resource ... Processing");
 		
 		try {
 			
 			csvParser.reload();
 			
-			CSVParserTransformer csvparserTransformer = new CSVParserTransformerNormalization(csvParser);
-			CSVParser csvParser2 = csvparserTransformer.getCSVParser();
-
-			neuralnetworkexecution.setParser(csvParser2)
-								  .setDelimiter(neuralnetworkexecution.getPercentage())
-								  .setMaximumOfMainColumnId(csvParser.getMaxValueFromColumn(mainColumnId));
-			
 			neuralnetworkexecution.getNeuralNetwork().resetWeights();
-
+			neuralnetworkexecution.setMultiplier(new Multiplier(csvParser.getMaxValueFromColumn(mainColumnId)));
 			
-			System.out.print("File has changed... Locking resource ... Processing ");
-			
-			if(mode == EXEC_RETURN) {
+			if(neuralModeExecution == NeuralModeExecutionEnum.RUN_TRADING_ROBOT) {
+				System.out.println("Mode : EXEC_MODE_RETURN enabled");
 				
-				double predictedFutureValue = neuralnetworkexecution.execGetValueWithLowestError();
+				double predictedFutureValue = neuralnetworkexecution.execGetFuturePrice();
 				double lastKnownValue = csvParser.getValue(csvParser.countLines()-1, neuralnetworkexecution.getMainColumnId());
 				
-				System.out.println(" ... [OK]");
 				System.out.println("Last = " + lastKnownValue);
 				System.out.println("Future (prediction) = " + predictedFutureValue);
 				
 				pricesrecord.addPrice(lastKnownValue);
 				
-				if(lastKnownValue <= predictedFutureValue) {
+				if(lastKnownValue <= predictedFutureValue)
 					tradesrecord.saveTrade("Credit-agricole", lastKnownValue, predictedFutureValue, Constants.VOLUME, "BUY");
-				}
-				else {
-					tradesrecord.saveTrade("Credit-agricole", lastKnownValue, predictedFutureValue, Constants.VOLUME, "SELL");
-				}
+				else
+					tradesrecord.saveTrade("Credit-agricole", lastKnownValue, predictedFutureValue, Constants.VOLUME, "SELL");	
 				
 				tradesrecord.debug();
 				
 				System.out.println("Profit and Loss = " + tradesrecord.getProfitLoss());
 				
 			}
-			else if(mode == EXEC_NO_RETURN) {
-			
-				neuralnetworkexecution.exec();
-				
+			else if(neuralModeExecution == NeuralModeExecutionEnum.FIND_BEST_ERROR_DISP) {
+				System.out.println("Mode : EXEC_NO_RETURN enabled");
+				neuralnetworkexecution.execFindBestErrorDisp();
 			}
+			
 		}
 		
-		catch (UnknownColumnException
-			 | InterruptedException
-			 | InvalidStateOfParser 
-			 | MainColumnIdMaxValueException
-			 | IOException
-			 | InvalidCSVFile 
-			 | InvalidPercentageException 
-			 | DelimiterOutOfBoundsException e) {
-		}
+		catch (Exception e) {}
 		
 	}
 	
@@ -186,8 +162,8 @@ public class TradingRobot implements IRobot {
 		return this;
 	}
 
-	public TradingRobot setDelimiter(int delimiter) {
-		this.delimiter = delimiter;
+	public TradingRobot setPercentage(int percentage) {
+		this.percentage = percentage;
 		return this;
 	}
 
@@ -203,6 +179,11 @@ public class TradingRobot implements IRobot {
 
 	public TradingRobot setMomentum(double momentum) {
 		this.momentum = momentum;
+		return this;
+	}
+
+	public TradingRobot setModeForExecution(NeuralModeExecutionEnum neuralModeExecution) {
+		this.neuralModeExecution = neuralModeExecution;
 		return this;
 	}
 }

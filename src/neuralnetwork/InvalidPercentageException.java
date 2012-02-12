@@ -7,4 +7,5 @@ public class InvalidPercentageException extends Exception {
 	public InvalidPercentageException(int percentage) {
 		System.out.println("Invalid percentage " + percentage + ". Must be between 1% and 99%.");
 	}
+	
 }

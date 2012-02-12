@@ -1,0 +1,8 @@
+package utils;
+
+public enum NeuralModeExecutionEnum {
+	FIND_BEST_ERROR_DISP,
+	FIND_BEST_ERROR_SILENT,
+	PREDICT_FUTURE_PRICE_WITH_BEST_ERROR,
+	RUN_TRADING_ROBOT
+}

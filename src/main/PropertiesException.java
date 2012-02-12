@@ -8,4 +8,9 @@ public class PropertiesException extends Exception {
 		System.out.println("Error detected in properties file.");
 		System.exit(0);
 	}
+	
+	public PropertiesException(String message) {
+		System.out.println("Error detected in properties file. Message : " + message);
+		System.exit(0);
+	}
 }

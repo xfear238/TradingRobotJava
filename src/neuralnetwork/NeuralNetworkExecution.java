@@ -9,28 +9,32 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import utils.Constants;
 
+//mettre pattern singleton
 public class NeuralNetworkExecution {
 
 	static Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
 
+	//Dangereux de stocker des choses qui peuvent se recalculer. On risque d'oublier des choses (delimiter et tout)
 	private double learningRate;
 	private double momentum;
 	private int epochs;
-	private int delimiter;
 	private int deltaTime;
 	private int percentage;
 	private int[] desiredInputs;
 	private int mainColumnId;
 	private NeuralNetwork neuralnetwork;
 	private CSVParser csvparser;
-	private double mainColumnIdMaxValue = 0;
-
+	private CSVParser rawCsvParser;
+	private Multiplier multiplier = new Multiplier(1);
+	
 	public NeuralNetworkExecution() {
 		DOMConfigurator.configure("xml/LogNeuralNetworkExecution.xml");
 	}
 
-	public void exec() throws DelimiterOutOfBoundsException, UnknownColumnException, InterruptedException, InvalidStateOfParser, MainColumnIdMaxValueException {
+	public void execFindBestErrorDisp() throws DelimiterOutOfBoundsException, UnknownColumnException, InterruptedException, InvalidStateOfParser, MainColumnIdMaxValueException {
 
+		int delimiter = getDelimiter();
+		
 		if(delimiter <= 0 || delimiter >= csvparser.countLines())
 			throw new DelimiterOutOfBoundsException();
 
@@ -38,11 +42,23 @@ public class NeuralNetworkExecution {
 		double errorMin = Constants.INT_MAX;
 		int epochsIt = 0;
 		int bestEpoch = 0;
-
+		
+		logger.debug("delimiter = " + delimiter);
+		logger.debug("filename = " + rawCsvParser.filename);
+		logger.debug("filename count lines = " + csvparser.countLines());
+		
+		logger.debug("desiredInputs = " + desiredInputs[0]);
+		logger.debug("momentum = " + momentum);
+		logger.debug("learningRate = " + learningRate);
+		logger.debug("epochs = " + epochs);
+		logger.debug("delimiter = " + percentage + " %");
+		logger.debug("mainColumnId = " + mainColumnId);
+		logger.debug("deltatime = " + deltaTime);
+	
 		while(epochsIt < epochs) {
-
+			
 			neuralnetwork.trainProcess(delimiter, desiredInputs, csvparser, mainColumnId, deltaTime, learningRate, momentum);
-			error = neuralnetwork.error(delimiter, csvparser, deltaTime, desiredInputs, mainColumnId, mainColumnIdMaxValue);
+			error = neuralnetwork.error(delimiter, csvparser, deltaTime, desiredInputs, mainColumnId, multiplier.getMultiplier());
 
 			if(error < errorMin) {
 				errorMin = error;
@@ -55,53 +71,86 @@ public class NeuralNetworkExecution {
 			epochsIt++;
 		}
 
-		logger.debug("error min (at epoch : " + bestEpoch + " ) : " + errorMin);
+		logger.debug("Prediction " + deltaTime + " days ahead : error min (at epoch : " + bestEpoch + " ) : " + errorMin);
+	}
+	
+	public void execFindBestErrorSilentDisp() throws DelimiterOutOfBoundsException, UnknownColumnException, InterruptedException, InvalidStateOfParser, MainColumnIdMaxValueException {
+
+		int delimiter = getDelimiter();
+		
+		if(delimiter <= 0 || delimiter >= csvparser.countLines())
+			throw new DelimiterOutOfBoundsException();
+
+		double error = 0;
+		double errorMin = Constants.INT_MAX;
+		int epochsIt = 0;
+		int bestEpoch = 0;
+
+		logger.debug("Computing the best error and the best epoch. Please wait, this may take a while...");
+		
+		while(epochsIt < epochs) {
+			neuralnetwork.trainProcess(delimiter, desiredInputs, csvparser, mainColumnId, deltaTime, learningRate, momentum);
+			error = neuralnetwork.error(delimiter, csvparser, deltaTime, desiredInputs, mainColumnId, multiplier.getMultiplier());
+
+			if(error < errorMin) {
+				errorMin = error;
+				bestEpoch = epochsIt;
+			}
+
+			epochsIt++;
+		}
+
+		logger.debug("Prediction " + deltaTime + " days ahead : error min (at epoch : " + bestEpoch + " ) : " + errorMin);
 	}
 
-
-	public double execGetValue() throws UnknownColumnException, InterruptedException, InvalidStateOfParser {
-
-		int epochsIterator = 0;
-
-		 while(epochsIterator < epochs) {
-			 neuralnetwork.trainProcess(delimiter, desiredInputs, csvparser, mainColumnId, deltaTime, learningRate, momentum);
-		        epochsIterator++;
-		 }
-		 return neuralnetwork.runningProcess(csvparser.countLines()-1, desiredInputs, csvparser, mainColumnId, mainColumnIdMaxValue);
-	}
-
-	public double execGetValueWithLowestError() throws UnknownColumnException, InterruptedException, InvalidStateOfParser, MainColumnIdMaxValueException {
-
+	public void execGetFuturePriceDisp() throws UnknownColumnException, InterruptedException, InvalidStateOfParser, MainColumnIdMaxValueException {
+		
+		int delimiter = getDelimiter();
 	    double errorRate;
 	    double errorRateMin = (double) Constants.INT_MAX;
 	    int epochsIterator = 0;
-	    int bestEpoch = 0;
 
 	    while(epochsIterator < epochs) {
 	    	neuralnetwork.trainProcess(delimiter, desiredInputs, csvparser, mainColumnId, deltaTime, learningRate, momentum);
-	        errorRate = neuralnetwork.error(delimiter, csvparser, deltaTime, desiredInputs, mainColumnId, mainColumnIdMaxValue);
+	        errorRate = neuralnetwork.error(delimiter, csvparser, deltaTime, desiredInputs, mainColumnId, multiplier.getMultiplier());
 
-	        if(errorRate <= errorRateMin)
-	        {
+	        if(errorRate <= errorRateMin) {
+	        	neuralnetwork.saveWeights();
 	            errorRateMin = errorRate;
-	            bestEpoch = epochsIterator;
 	        }
-
+	        
 	        epochsIterator++;
 	    }
 
-	    logger.debug("Best epoch : " + bestEpoch);
-
-	    //Best epoch
-	    epochsIterator = 0;
-	    while(epochsIterator < bestEpoch) {
-	    	neuralnetwork.trainProcess(delimiter, desiredInputs, csvparser, mainColumnId, deltaTime, learningRate, momentum);
-	        epochsIterator++;
-	    }
-
-	    return neuralnetwork.runningProcess(csvparser.countLines()-1, desiredInputs, csvparser, mainColumnId, mainColumnIdMaxValue);
+	    neuralnetwork.loadWeights();
+	    
+	    double future = neuralnetwork.runningProcess(csvparser.countLines()-1, desiredInputs, csvparser, mainColumnId, multiplier.getMultiplier());
+	    logger.debug("Prediction " + deltaTime + " days ahead : " + future);
+	    
 	}
+	
+	public double execGetFuturePrice() throws UnknownColumnException, InterruptedException, InvalidStateOfParser, MainColumnIdMaxValueException {
+		
+		int delimiter = getDelimiter();
+	    double errorRate;
+	    double errorRateMin = (double) Constants.INT_MAX;
+	    int epochsIterator = 0;
 
+	    while(epochsIterator < epochs) {
+	    	neuralnetwork.trainProcess(delimiter, desiredInputs, csvparser, mainColumnId, deltaTime, learningRate, momentum);
+	        errorRate = neuralnetwork.error(delimiter, csvparser, deltaTime, desiredInputs, mainColumnId, multiplier.getMultiplier());
+
+	        if(errorRate <= errorRateMin) {
+	        	neuralnetwork.saveWeights();
+	            errorRateMin = errorRate;
+	        }
+	        epochsIterator++;
+	    }
+	    
+	    neuralnetwork.loadWeights();
+	    return neuralnetwork.runningProcess(csvparser.countLines()-1, desiredInputs, csvparser, mainColumnId, multiplier.getMultiplier());
+	}
+	
 	public NeuralNetworkExecution setLearningRate(double learningRate) {
 		logger.debug("Learning Rate = " + learningRate);
 		this.learningRate = learningRate;
@@ -117,18 +166,6 @@ public class NeuralNetworkExecution {
 	public NeuralNetworkExecution setEpochs(int epochs) {
 		logger.debug("Epochs = " + epochs);
 		this.epochs = epochs;
-		return this;
-	}
-
-	public NeuralNetworkExecution setDelimiter(int percentage) throws InvalidPercentageException {
-
-		if(percentage >= 100 || percentage <= 0)
-			throw new InvalidPercentageException(percentage);
-
-		logger.debug("Percentage = " + percentage);
-		this.delimiter = (this.csvparser.countLines() * percentage) / 100;
-		logger.debug("Delimiter = " + delimiter);
-		this.percentage = percentage;
 		return this;
 	}
 
@@ -155,18 +192,38 @@ public class NeuralNetworkExecution {
 		this.mainColumnId = mainColumnId;
 		return this;
 	}
+	
+	public NeuralNetworkExecution setPercentageTrainingTesting(int percentage) {
+		logger.debug("Percentage = " + percentage);
+		if(percentage >= 100 || percentage <= 0)
+			try {
+				throw new InvalidPercentageException(percentage);
+			} catch (InvalidPercentageException e) {}
+		this.percentage = percentage;
+		return this;
+	}
 
 	public NeuralNetworkExecution setNeuralNetwork(NeuralNetwork neuralnetwork) {
 		this.neuralnetwork = neuralnetwork;
 		return this;
 	}
 
-	public NeuralNetworkExecution setMaximumOfMainColumnId(double mainColumnIdMaxValue) {
-		logger.debug("Main Column Id Max Value = " + mainColumnIdMaxValue);
-		this.mainColumnIdMaxValue = mainColumnIdMaxValue;
+	public NeuralNetworkExecution setRawCsvParser(CSVParser rawcsvparser) {
+		this.rawCsvParser = rawcsvparser;
 		return this;
 	}
-
+	
+	public NeuralNetworkExecution setMultiplier(Multiplier multiplier) {
+		logger.debug("Multiplier = " + multiplier.getMultiplier());
+		this.multiplier = multiplier;
+		return this;
+		
+	}
+	
+	public CSVParser getRawCsvParser() {
+		return rawCsvParser;
+	}
+	
 	public CSVParser getParser() {
 		return csvparser;
 	}
@@ -182,8 +239,16 @@ public class NeuralNetworkExecution {
 	public int getDeltaTime() {
 		return deltaTime;
 	}
-
+	
+	public int getDelimiter() {
+		int delimiter = (this.csvparser.countLines() * percentage) / 100;
+		logger.debug("Delimiter = " + delimiter);
+		return delimiter;
+	}
+	
 	public int getMainColumnId() {
 		return mainColumnId;
 	}
+
+	
 }

@@ -22,7 +22,7 @@ public class Main {
 														   .setMomentum(Double.parseDouble(args[3]))
 														   .setLearningRate(Double.parseDouble(args[4]))
 														   .setEpochs(Integer.parseInt(args[5]))
-														   .setDelimiter(Integer.parseInt(args[6]))
+														   .setPercentage(Integer.parseInt(args[6]))
 														   .setMainColumnId(Integer.parseInt(args[7]))
 														   .setDeltaTime(Integer.parseInt(args[8]));
 			

@@ -1,560 +1,76 @@
-14:24:10 | Neural Network created
-14:24:10 | layer created
-14:24:10 | Input neuron created
-14:24:10 | Input neuron created
-14:24:10 | Input neuron created
-14:24:10 | Input neuron created
-14:24:10 | Input neuron created
-14:24:10 | Input neuron created
-14:24:10 | Input neuron created
-14:24:10 | Input neuron created
-14:24:10 | layer added
-14:24:10 | layer created
-14:24:10 | Hidden neuron created
-14:24:10 | Hidden neuron created
-14:24:10 | Hidden neuron created
-14:24:10 | Hidden neuron created
-14:24:10 | layer added
-14:24:10 | layer created
-14:24:10 | Output neuron created
-14:24:10 | layer added
-14:45:52 | Neural Network created
-14:45:52 | layer created
-14:45:52 | Input neuron created
-14:45:52 | Input neuron created
-14:45:52 | Input neuron created
-14:45:52 | Input neuron created
-14:45:52 | Input neuron created
-14:45:52 | Input neuron created
-14:45:52 | Input neuron created
-14:45:52 | Input neuron created
-14:45:52 | layer added
-14:45:52 | layer created
-14:45:52 | Hidden neuron created
-14:45:52 | Hidden neuron created
-14:45:52 | Hidden neuron created
-14:45:52 | Hidden neuron created
-14:45:52 | layer added
-14:45:52 | layer created
-14:45:52 | Output neuron created
-14:45:52 | layer added
-18:10:43 | Neural Network created
-18:10:43 | layer created
-18:10:43 | Input neuron created
-18:10:43 | Input neuron created
-18:10:43 | Input neuron created
-18:10:43 | Input neuron created
-18:10:43 | Input neuron created
-18:10:43 | Input neuron created
-18:10:43 | Input neuron created
-18:10:43 | Input neuron created
-18:10:43 | layer added
-18:10:43 | layer created
-18:10:43 | Hidden neuron created
-18:10:43 | Hidden neuron created
-18:10:43 | Hidden neuron created
-18:10:43 | Hidden neuron created
-18:10:43 | layer added
-18:10:43 | layer created
-18:10:43 | Output neuron created
-18:10:43 | layer added
-18:11:23 | Neural Network created
-18:11:23 | layer created
-18:11:23 | Input neuron created
-18:11:23 | Input neuron created
-18:11:23 | Input neuron created
-18:11:24 | Input neuron created
-18:11:24 | Input neuron created
-18:11:24 | Input neuron created
-18:11:24 | Input neuron created
-18:11:24 | Input neuron created
-18:11:24 | layer added
-18:11:24 | layer created
-18:11:24 | Hidden neuron created
-18:11:24 | Hidden neuron created
-18:11:24 | Hidden neuron created
-18:11:24 | Hidden neuron created
-18:11:24 | layer added
-18:11:24 | layer created
-18:11:24 | Output neuron created
-18:11:24 | layer added
-18:12:05 | Neural Network created
-18:12:05 | layer created
-18:12:05 | Input neuron created
-18:12:05 | Input neuron created
-18:12:05 | Input neuron created
-18:12:05 | Input neuron created
-18:12:05 | Input neuron created
-18:12:05 | Input neuron created
-18:12:05 | Input neuron created
-18:12:05 | Input neuron created
-18:12:05 | layer added
-18:12:05 | layer created
-18:12:05 | Hidden neuron created
-18:12:05 | Hidden neuron created
-18:12:05 | Hidden neuron created
-18:12:05 | Hidden neuron created
-18:12:05 | layer added
-18:12:05 | layer created
-18:12:05 | Output neuron created
-18:12:05 | layer added
-18:13:01 | Neural Network created
-18:13:01 | layer created
-18:13:01 | Input neuron created
-18:13:01 | Input neuron created
-18:13:01 | Input neuron created
-18:13:01 | Input neuron created
-18:13:01 | Input neuron created
-18:13:01 | Input neuron created
-18:13:01 | Input neuron created
-18:13:01 | Input neuron created
-18:13:01 | layer added
-18:13:01 | layer created
-18:13:01 | Hidden neuron created
-18:13:01 | Hidden neuron created
-18:13:01 | Hidden neuron created
-18:13:01 | Hidden neuron created
-18:13:01 | layer added
-18:13:01 | layer created
-18:13:01 | Output neuron created
-18:13:01 | layer added
-18:13:39 | Neural Network created
-18:13:39 | layer created
-18:13:39 | Input neuron created
-18:13:39 | Input neuron created
-18:13:39 | Input neuron created
-18:13:39 | Input neuron created
-18:13:39 | Input neuron created
-18:13:39 | Input neuron created
-18:13:40 | Input neuron created
-18:13:40 | Input neuron created
-18:13:40 | layer added
-18:13:40 | layer created
-18:13:40 | Hidden neuron created
-18:13:40 | Hidden neuron created
-18:13:40 | Hidden neuron created
-18:13:40 | Hidden neuron created
-18:13:40 | layer added
-18:13:40 | layer created
-18:13:40 | Output neuron created
-18:13:40 | layer added
-18:13:53 | Neural Network created
-18:13:53 | layer created
-18:13:53 | Input neuron created
-18:13:53 | Input neuron created
-18:13:53 | Input neuron created
-18:13:53 | Input neuron created
-18:13:53 | Input neuron created
-18:13:53 | Input neuron created
-18:13:53 | Input neuron created
-18:13:53 | Input neuron created
-18:13:53 | layer added
-18:13:53 | layer created
-18:13:53 | Hidden neuron created
-18:13:53 | Hidden neuron created
-18:13:53 | Hidden neuron created
-18:13:53 | Hidden neuron created
-18:13:53 | layer added
-18:13:53 | layer created
-18:13:53 | Output neuron created
-18:13:53 | layer added
-18:16:12 | Neural Network created
-18:16:12 | layer created
-18:16:13 | Input neuron created
-18:16:13 | Input neuron created
-18:16:13 | Input neuron created
-18:16:13 | Input neuron created
-18:16:13 | Input neuron created
-18:16:13 | Input neuron created
-18:16:13 | Input neuron created
-18:16:13 | Input neuron created
-18:16:13 | layer added
-18:16:13 | layer created
-18:16:13 | Hidden neuron created
-18:16:13 | Hidden neuron created
-18:16:13 | Hidden neuron created
-18:16:13 | Hidden neuron created
-18:16:13 | layer added
-18:16:13 | layer created
-18:16:13 | Output neuron created
-18:16:13 | layer added
-18:16:24 | Neural Network created
-18:16:24 | layer created
-18:16:24 | Input neuron created
-18:16:24 | Input neuron created
-18:16:24 | Input neuron created
-18:16:24 | Input neuron created
-18:16:24 | Input neuron created
-18:16:24 | Input neuron created
-18:16:24 | Input neuron created
-18:16:24 | Input neuron created
-18:16:24 | layer added
-18:16:24 | layer created
-18:16:24 | Hidden neuron created
-18:16:24 | Hidden neuron created
-18:16:24 | Hidden neuron created
-18:16:24 | Hidden neuron created
-18:16:24 | layer added
-18:16:24 | layer created
-18:16:24 | Output neuron created
-18:16:24 | layer added
-18:16:33 | Neural Network created
-18:16:33 | layer created
-18:16:33 | Input neuron created
-18:16:33 | Input neuron created
-18:16:33 | Input neuron created
-18:16:33 | Input neuron created
-18:16:33 | Input neuron created
-18:16:33 | Input neuron created
-18:16:33 | Input neuron created
-18:16:33 | Input neuron created
-18:16:33 | layer added
-18:16:33 | layer created
-18:16:33 | Hidden neuron created
-18:16:33 | Hidden neuron created
-18:16:33 | Hidden neuron created
-18:16:33 | Hidden neuron created
-18:16:33 | layer added
-18:16:33 | layer created
-18:16:33 | Output neuron created
-18:16:33 | layer added
-18:16:51 | Neural Network created
-18:16:51 | layer created
-18:16:51 | Input neuron created
-18:16:51 | Input neuron created
-18:16:51 | Input neuron created
-18:16:51 | Input neuron created
-18:16:51 | Input neuron created
-18:16:51 | Input neuron created
-18:16:51 | Input neuron created
-18:16:51 | Input neuron created
-18:16:51 | layer added
-18:16:51 | layer created
-18:16:51 | Hidden neuron created
-18:16:51 | Hidden neuron created
-18:16:51 | Hidden neuron created
-18:16:51 | Hidden neuron created
-18:16:51 | layer added
-18:16:51 | layer created
-18:16:51 | Output neuron created
-18:16:51 | layer added
-18:18:00 | Neural Network created
-18:18:00 | layer created
-18:18:00 | Input neuron created
-18:18:00 | Input neuron created
-18:18:00 | Input neuron created
-18:18:00 | Input neuron created
-18:18:00 | Input neuron created
-18:18:00 | Input neuron created
-18:18:00 | Input neuron created
-18:18:00 | Input neuron created
-18:18:00 | layer added
-18:18:00 | layer created
-18:18:00 | Hidden neuron created
-18:18:00 | Hidden neuron created
-18:18:00 | Hidden neuron created
-18:18:00 | Hidden neuron created
-18:18:00 | layer added
-18:18:00 | layer created
-18:18:00 | Output neuron created
-18:18:00 | layer added
-18:20:24 | Neural Network created
-18:20:24 | layer created
-18:20:24 | Input neuron created
-18:20:24 | Input neuron created
-18:20:24 | Input neuron created
-18:20:24 | Input neuron created
-18:20:24 | Input neuron created
-18:20:24 | Input neuron created
-18:20:24 | Input neuron created
-18:20:24 | Input neuron created
-18:20:24 | layer added
-18:20:24 | layer created
-18:20:24 | Hidden neuron created
-18:20:24 | Hidden neuron created
-18:20:24 | Hidden neuron created
-18:20:24 | Hidden neuron created
-18:20:24 | layer added
-18:20:24 | layer created
-18:20:24 | Output neuron created
-18:20:24 | layer added
-18:23:00 | Neural Network created
-18:23:00 | layer created
-18:23:00 | Input neuron created
-18:23:00 | Input neuron created
-18:23:00 | Input neuron created
-18:23:00 | Input neuron created
-18:23:00 | Input neuron created
-18:23:00 | Input neuron created
-18:23:01 | Input neuron created
-18:23:01 | Input neuron created
-18:23:01 | layer added
-18:23:01 | layer created
-18:23:01 | Hidden neuron created
-18:23:01 | Hidden neuron created
-18:23:01 | Hidden neuron created
-18:23:01 | Hidden neuron created
-18:23:01 | layer added
-18:23:01 | layer created
-18:23:01 | Output neuron created
-18:23:01 | layer added
-18:41:19 | Neural Network created
-18:41:19 | layer created
-18:41:19 | Input neuron created
-18:41:19 | Input neuron created
-18:41:19 | Input neuron created
-18:41:19 | Input neuron created
-18:41:19 | Input neuron created
-18:41:19 | Input neuron created
-18:41:19 | Input neuron created
-18:41:19 | Input neuron created
-18:41:19 | layer added
-18:41:19 | layer created
-18:41:19 | Hidden neuron created
-18:41:19 | Hidden neuron created
-18:41:19 | Hidden neuron created
-18:41:19 | Hidden neuron created
-18:41:19 | layer added
-18:41:19 | layer created
-18:41:19 | Output neuron created
-18:41:19 | layer added
-18:46:19 | Neural Network created
-18:46:19 | layer created
-18:46:19 | Input neuron created
-18:46:19 | Input neuron created
-18:46:19 | Input neuron created
-18:46:19 | Input neuron created
-18:46:19 | Input neuron created
-18:46:19 | Input neuron created
-18:46:19 | Input neuron created
-18:46:19 | Input neuron created
-18:46:19 | layer added
-18:46:19 | layer created
-18:46:19 | Hidden neuron created
-18:46:19 | Hidden neuron created
-18:46:19 | Hidden neuron created
-18:46:19 | Hidden neuron created
-18:46:19 | layer added
-18:46:19 | layer created
-18:46:19 | Output neuron created
-18:46:19 | layer added
-18:59:39 | Neural Network created
-18:59:39 | layer created
-18:59:39 | Input neuron created
-18:59:39 | Input neuron created
-18:59:39 | Input neuron created
-18:59:39 | Input neuron created
-18:59:39 | Input neuron created
-18:59:39 | Input neuron created
-18:59:39 | Input neuron created
-18:59:39 | Input neuron created
-18:59:39 | layer added
-18:59:39 | layer created
-18:59:39 | Hidden neuron created
-18:59:39 | Hidden neuron created
-18:59:39 | Hidden neuron created
-18:59:39 | Hidden neuron created
-18:59:39 | layer added
-18:59:39 | layer created
-18:59:39 | Output neuron created
-18:59:39 | layer added
-19:03:42 | Neural Network created
-19:03:42 | layer created
-19:03:42 | Input neuron created
-19:03:42 | Input neuron created
-19:03:42 | Input neuron created
-19:03:42 | Input neuron created
-19:03:42 | Input neuron created
-19:03:42 | Input neuron created
-19:03:42 | Input neuron created
-19:03:43 | Input neuron created
-19:03:43 | layer added
-19:03:43 | layer created
-19:03:43 | Hidden neuron created
-19:03:43 | Hidden neuron created
-19:03:43 | Hidden neuron created
-19:03:43 | Hidden neuron created
-19:03:43 | layer added
-19:03:43 | layer created
-19:03:43 | Output neuron created
-19:03:43 | layer added
-19:06:39 | Neural Network created
-19:06:39 | layer created
-19:06:39 | Input neuron created
-19:06:39 | Input neuron created
-19:06:39 | Input neuron created
-19:06:39 | Input neuron created
-19:06:39 | Input neuron created
-19:06:39 | Input neuron created
-19:06:39 | Input neuron created
-19:06:39 | Input neuron created
-19:06:39 | layer added
-19:06:39 | layer created
-19:06:39 | Hidden neuron created
-19:06:39 | Hidden neuron created
-19:06:39 | Hidden neuron created
-19:06:39 | Hidden neuron created
-19:06:39 | layer added
-19:06:40 | layer created
-19:06:40 | Output neuron created
-19:06:40 | layer added
-19:09:52 | Neural Network created
-19:09:53 | layer created
-19:09:53 | Input neuron created
-19:09:53 | Input neuron created
-19:09:53 | Input neuron created
-19:09:53 | Input neuron created
-19:09:53 | Input neuron created
-19:09:53 | Input neuron created
-19:09:53 | Input neuron created
-19:09:53 | Input neuron created
-19:09:53 | layer added
-19:09:53 | layer created
-19:09:53 | Hidden neuron created
-19:09:53 | Hidden neuron created
-19:09:53 | Hidden neuron created
-19:09:53 | Hidden neuron created
-19:09:53 | layer added
-19:09:53 | layer created
-19:09:53 | Output neuron created
-19:09:53 | layer added
-19:10:30 | Neural Network created
-19:10:30 | layer created
-19:10:30 | Input neuron created
-19:10:30 | Input neuron created
-19:10:30 | Input neuron created
-19:10:30 | Input neuron created
-19:10:30 | Input neuron created
-19:10:30 | Input neuron created
-19:10:30 | Input neuron created
-19:10:30 | Input neuron created
-19:10:30 | layer added
-19:10:30 | layer created
-19:10:30 | Hidden neuron created
-19:10:30 | Hidden neuron created
-19:10:30 | Hidden neuron created
-19:10:30 | Hidden neuron created
-19:10:30 | layer added
-19:10:30 | layer created
-19:10:30 | Output neuron created
-19:10:30 | layer added
-19:12:33 | Neural Network created
-19:12:33 | layer created
-19:12:33 | Input neuron created
-19:12:33 | Input neuron created
-19:12:33 | Input neuron created
-19:12:33 | Input neuron created
-19:12:33 | Input neuron created
-19:12:33 | Input neuron created
-19:12:33 | Input neuron created
-19:12:33 | Input neuron created
-19:12:33 | layer added
-19:12:33 | layer created
-19:12:33 | Hidden neuron created
-19:12:33 | Hidden neuron created
-19:12:33 | Hidden neuron created
-19:12:33 | Hidden neuron created
-19:12:33 | layer added
-19:12:33 | layer created
-19:12:33 | Output neuron created
-19:12:33 | layer added
-19:14:52 | Neural Network created
-19:14:52 | layer created
-19:14:52 | Input neuron created
-19:14:52 | Input neuron created
-19:14:52 | Input neuron created
-19:14:52 | Input neuron created
-19:14:52 | Input neuron created
-19:14:52 | Input neuron created
-19:14:52 | Input neuron created
-19:14:52 | Input neuron created
-19:14:52 | layer added
-19:14:52 | layer created
-19:14:52 | Hidden neuron created
-19:14:52 | Hidden neuron created
-19:14:52 | Hidden neuron created
-19:14:52 | Hidden neuron created
-19:14:52 | layer added
-19:14:52 | layer created
-19:14:52 | Output neuron created
-19:14:52 | layer added
-19:17:14 | Neural Network created
-19:17:14 | layer created
-19:17:14 | Input neuron created
-19:17:14 | Input neuron created
-19:17:14 | Input neuron created
-19:17:14 | Input neuron created
-19:17:14 | Input neuron created
-19:17:14 | Input neuron created
-19:17:14 | Input neuron created
-19:17:14 | Input neuron created
-19:17:14 | layer added
-19:17:14 | layer created
-19:17:14 | Hidden neuron created
-19:17:14 | Hidden neuron created
-19:17:14 | Hidden neuron created
-19:17:14 | Hidden neuron created
-19:17:14 | layer added
-19:17:14 | layer created
-19:17:15 | Output neuron created
-19:17:15 | layer added
-19:21:08 | Neural Network created
-19:21:08 | layer created
-19:21:08 | Input neuron created
-19:21:08 | Input neuron created
-19:21:08 | Input neuron created
-19:21:08 | Input neuron created
-19:21:08 | Input neuron created
-19:21:08 | Input neuron created
-19:21:08 | Input neuron created
-19:21:08 | Input neuron created
-19:21:08 | layer added
-19:21:08 | layer created
-19:21:08 | Hidden neuron created
-19:21:08 | Hidden neuron created
-19:21:08 | Hidden neuron created
-19:21:08 | Hidden neuron created
-19:21:08 | layer added
-19:21:08 | layer created
-19:21:08 | Output neuron created
-19:21:08 | layer added
-19:27:19 | Neural Network created
-19:27:19 | layer created
-19:27:19 | Input neuron created
-19:27:19 | Input neuron created
-19:27:19 | Input neuron created
-19:27:19 | Input neuron created
-19:27:19 | Input neuron created
-19:27:19 | Input neuron created
-19:27:19 | Input neuron created
-19:27:19 | Input neuron created
-19:27:19 | layer added
-19:27:19 | layer created
-19:27:19 | Hidden neuron created
-19:27:19 | Hidden neuron created
-19:27:19 | Hidden neuron created
-19:27:19 | Hidden neuron created
-19:27:19 | layer added
-19:27:19 | layer created
-19:27:19 | Output neuron created
-19:27:19 | layer added
-19:27:51 | Neural Network created
-19:27:51 | layer created
-19:27:51 | Input neuron created
-19:27:51 | Input neuron created
-19:27:51 | Input neuron created
-19:27:51 | Input neuron created
-19:27:51 | Input neuron created
-19:27:51 | Input neuron created
-19:27:51 | Input neuron created
-19:27:51 | Input neuron created
-19:27:51 | layer added
-19:27:51 | layer created
-19:27:51 | Hidden neuron created
-19:27:51 | Hidden neuron created
-19:27:51 | Hidden neuron created
-19:27:51 | Hidden neuron created
-19:27:51 | layer added
-19:27:51 | layer created
-19:27:51 | Output neuron created
-19:27:51 | layer added
+[main] DEBUG test.Log4jTest  - Sample debug message
+[main] INFO  test.Log4jTest  - Sample info message
+[main] WARN  test.Log4jTest  - Sample warn message
+[main] ERROR test.Log4jTest  - Sample error message
+[main] FATAL test.Log4jTest  - Sample fatal message
+[main] DEBUG test.Log4jTest  - Sample debug message
+[main] INFO  test.Log4jTest  - Sample info message
+[main] WARN  test.Log4jTest  - Sample warn message
+[main] ERROR test.Log4jTest  - Sample error message
+[main] FATAL test.Log4jTest  - Sample fatal message
+23:10:55 | Neural Network created
+23:10:55 | layer created
+23:10:55 | layer created
+23:10:55 | layer created
+23:10:55 | Input neuron created
+23:10:55 | Input neuron created
+23:10:55 | Input neuron created
+23:10:55 | Input neuron created
+23:10:55 | Input neuron created
+23:10:55 | Input neuron created
+23:10:55 | Input neuron created
+23:10:55 | Input neuron created
+23:10:55 | Hidden neuron created
+23:10:55 | Hidden neuron created
+23:10:55 | Hidden neuron created
+23:10:55 | Hidden neuron created
+23:10:55 | Output neuron created
+23:10:55 | Output neuron created
+23:10:55 | layer added
+23:10:55 | layer added
+23:10:55 | layer added
+23:10:55 | Neural Network created
+23:10:55 | layer created
+23:10:55 | layer created
+23:10:55 | layer created
+23:10:56 | Input neuron created
+23:10:56 | Input neuron created
+23:10:56 | Input neuron created
+23:10:56 | Input neuron created
+23:10:56 | Hidden neuron created
+23:10:56 | Hidden neuron created
+23:10:56 | Hidden neuron created
+23:10:56 | Hidden neuron created
+23:10:56 | Output neuron created
+23:10:56 | Output neuron created
+23:10:56 | layer added
+23:10:56 | layer added
+23:10:56 | layer added
+23:16:32 | Neural Network created
+23:16:32 | layer created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | Input neuron created
+23:16:32 | layer added
+23:16:32 | layer created
+23:16:32 | Hidden neuron created
+23:16:32 | Hidden neuron created
+23:16:32 | Hidden neuron created
+23:16:32 | Hidden neuron created
+23:16:32 | layer added
+23:16:32 | layer created
+23:16:32 | Output neuron created
+23:16:32 | layer added
