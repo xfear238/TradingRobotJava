@@ -4,6 +4,11 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.List;
 
+import neuralnetwork.NeuralNetworkExecution;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import utils.Utils;
@@ -12,6 +17,13 @@ import file.ExtendedFile;
 
 public class ExtendedFileTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}
+	
 	@Test
 	public void countLinesTest() throws IOException {
 		
@@ -25,13 +37,13 @@ public class ExtendedFileTest {
     
 		ExtendedFile file = new ExtendedFile("files/testExtendedFile.csv");
 		List<String> results = file.extractLines(2, 3);
-		System.out.println(results.toString());
+		logger.debug(results.toString());
 		
 		for(int i=0; i<results.size(); i++) {
-			System.out.println("i=" + i);
+			logger.debug("i=" + i);
 			switch(i) {
 			case 0:
-				System.out.println(results.get(i));
+				logger.debug(results.get(i));
 				assertTrue(results.get(i) != "3.0;3.0;3.0;3.0;3.0");
 				break;
 			
@@ -44,7 +56,7 @@ public class ExtendedFileTest {
 				break;
 			
 			default:
-				System.out.println("wrong extractLinesTest - default case");
+				logger.debug("wrong extractLinesTest - default case");
 				assertTrue(false);
 				break;
 			
@@ -60,7 +72,7 @@ public class ExtendedFileTest {
 		if(filecpy.exists()) {
 			System.out.print("test copy already exists. Preparing to delete ...");
 			filecpy.delete();
-			System.out.println(" [OK]");
+			logger.debug(" [OK]");
 		}
 		
 		filecpy = null;
@@ -68,7 +80,7 @@ public class ExtendedFileTest {
 		ExtendedFile file = new ExtendedFile("files/testExtendedFile.csv");
 		file.copy("files/testExtendedFile_COPY.csv");
 		if(!file.exists()) {
-			System.out.println("File test_COPY.csv has not been created.");
+			logger.debug("File test_COPY.csv has not been created.");
 			fail();
 		}
 		
@@ -92,13 +104,13 @@ public class ExtendedFileTest {
 		if(filecpy.exists()) {
 			System.out.print("test copy already exists. Preparing to delete ...");
 			filecpy.delete();
-			System.out.println(" [OK]");
+			logger.debug(" [OK]");
 		}
 		
 		ExtendedFile file = new ExtendedFile("files/testExtendedFile.csv");
 		file.copy("files/testExtendedFile_COPY.csv");
 		if(!file.exists()) {
-			System.out.println("File test_COPY.csv has not been created.");
+			logger.debug("File test_COPY.csv has not been created.");
 			fail();
 		}	
 	}

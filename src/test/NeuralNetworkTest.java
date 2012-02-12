@@ -6,7 +6,11 @@ import java.io.IOException;
 
 import neuralnetwork.NeuralNetwork;
 import neuralnetwork.DelimiterOutOfBoundsException;
+import neuralnetwork.NeuralNetworkExecution;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import csvparser.CSVParser;
@@ -18,6 +22,13 @@ import csvparser.UnknownColumnException;
 
 public class NeuralNetworkTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}	
+	
 	@Test
 	public void neuralNetworkLayerCountTest() {
 		NeuralNetwork neuralnetwork = new NeuralNetwork(4,4,1);
@@ -28,7 +39,7 @@ public class NeuralNetworkTest {
 	@Test
 	public void execTest() throws IOException, InvalidCSVFile, DelimiterOutOfBoundsException, UnknownColumnException, InterruptedException, InvalidStateOfParser {
 		
-		System.out.println("---- execTest() --- BEGINNING ----");
+		logger.debug("---- execTest() --- BEGINNING ----");
 		CSVParser csvParser = new CSVParser("files/SG.csv");
 		
 		CSVParserTransformer csvparsertransformer = new CSVParserTransformerNormalization(csvParser);
@@ -47,7 +58,7 @@ public class NeuralNetworkTest {
 		
 		NeuralNetwork neuralnetwork = new NeuralNetwork(inputCount,4,1);
 		
-		System.out.println("---- execTest() --- ENDING ----");
+		logger.debug("---- execTest() --- ENDING ----");
 	}
 	
 }

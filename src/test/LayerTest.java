@@ -5,15 +5,26 @@ import layer.ILayer;
 import layer.Layer;
 import layer.RemoveNeuronOutOfBounds;
 
+import neuralnetwork.NeuralNetworkExecution;
 import neuron.INeuron;
 import neuron.InputNeuron;
 import neuron.HiddenNeuron;
 import neuron.OutputNeuron;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class LayerTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}
+	
 	@Test
 	public void addNeuronTest() {
 		ILayer layer = new Layer();

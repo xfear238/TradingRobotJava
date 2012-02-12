@@ -2,16 +2,14 @@ package robot;
 
 import java.io.File;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 import records.PricesRecord;
 import records.TradesRecord;
 import utils.Constants;
-import utils.NeuralModeExecutionEnum;
 
-import neuralnetwork.ActivationFunctionLinear;
 import neuralnetwork.ActivationFunctionSigmoid;
 import neuralnetwork.Multiplier;
+import neuralnetwork.NeuralModeExecutionEnum;
 import neuralnetwork.NeuralNetwork;
 import neuralnetwork.NeuralNetworkExecution;
 import neuralnetwork.NeuralNetworkExecutionFactory;
@@ -20,12 +18,10 @@ import neuralnetwork.NeuralNetworkFactory;
 import csvparser.CSVParser;
 import csvparser.CSVParserTransformer;
 import csvparser.CSVParserTransformerNormalization;
-import csvparser.CSVParserTransformerPercentage;
 
 import filemonitoring.FileMonitorRobot;
 
 
-//Normaliser ce putin de pourcentage !!!!!!!!
 public class TradingRobot implements IRobot {
 	
 	

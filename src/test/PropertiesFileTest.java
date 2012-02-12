@@ -6,10 +6,22 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
+import neuralnetwork.NeuralNetworkExecution;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PropertiesFileTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}
+	
 	@Test
 	public void test() {
 			
@@ -31,7 +43,7 @@ public class PropertiesFileTest {
 				
 			}
 			catch(Exception e) {
-				System.out.println(e.getMessage());
+				logger.debug(e.getMessage());
 			}
 			
 	}

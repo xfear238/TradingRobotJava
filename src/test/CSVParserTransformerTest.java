@@ -2,6 +2,11 @@ package test;
 
 import java.io.IOException;
 
+import neuralnetwork.NeuralNetworkExecution;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import csvparser.CSVParser;
@@ -12,10 +17,17 @@ import csvparser.InvalidStateOfParser;
 
 public class CSVParserTransformerTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}
+	
 	@Test
 	public void CSVParserTransformertest() {
 		
-		System.out.println("Call - CSVParserTransformertest()");
+		logger.debug("Call - CSVParserTransformertest()");
 		
 		try {
 			
@@ -30,7 +42,7 @@ public class CSVParserTransformerTest {
 	@Test
 	public void CSVParserTransformerGenerateFileTest() {
 		
-		System.out.println("Call - CSVParserTransformerGenerateFileTest()");
+		logger.debug("Call - CSVParserTransformerGenerateFileTest()");
 		
 		try {
 			
@@ -46,7 +58,7 @@ public class CSVParserTransformerTest {
 	@Test
 	public void CSVParserTransformerGetCSVParserTest() {
 		
-		System.out.println("Call - CSVParserTransformerGetCSVParserTest()");
+		logger.debug("Call - CSVParserTransformerGetCSVParserTest()");
 		
 		try {
 

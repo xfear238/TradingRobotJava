@@ -1,4 +1,4 @@
-package utils;
+package neuralnetwork;
 
 public enum NeuralModeExecutionEnum {
 	FIND_BEST_ERROR_DISP,

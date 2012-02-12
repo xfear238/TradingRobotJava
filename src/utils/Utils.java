@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import neuralnetwork.NeuralModeExecutionEnum;
+
 import main.PropertiesException;
 
 public final class Utils {
 	
-	//TODO : a tester
 	public final static NeuralModeExecutionEnum convertStringToNeuralModeExecutionEnum(String string) throws PropertiesException {
 		NeuralModeExecutionEnum[] executionEnumList = NeuralModeExecutionEnum.values();
 		for(NeuralModeExecutionEnum executionEnum : executionEnumList) {

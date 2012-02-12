@@ -8,6 +8,9 @@ import neuralnetwork.NeuralNetwork;
 import neuralnetwork.NeuralNetworkExecution;
 import neuralnetwork.NeuralNetworkExecutionFactory;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import csvparser.CSVParser;
 import csvparser.CSVParserTransformer;
@@ -20,6 +23,13 @@ import file.ExtendedFile;
 
 public class CSVParserTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}
+	
 	@Test
 	public void set() {
 		assertTrue(true);
@@ -75,7 +85,7 @@ public class CSVParserTest {
 	@Test
 	public void addNewLineTest() {
 		
-		System.out.println("- addNewLineTest() -");
+		logger.debug("- addNewLineTest() -");
 		try {
 			
 			CSVParser csvparser = new CSVParser("files/test.csv");
@@ -95,7 +105,7 @@ public class CSVParserTest {
 	(expected=InvalidNewLineValuesException.class)
 	public void addNewLineExceptionTest() throws InvalidNewLineValuesException {
 		
-		System.out.println("- addNewLineExceptionTest() -");
+		logger.debug("- addNewLineExceptionTest() -");
 		try {
 			
 			CSVParser csvparser = new CSVParser("files/test.csv");
@@ -116,7 +126,7 @@ public class CSVParserTest {
 	@Test
 	public void reloadTest() {
 		
-		System.out.println("- reload2Test() - ");
+		logger.debug("- reload2Test() - ");
 		
 		try {
 
@@ -125,7 +135,7 @@ public class CSVParserTest {
 			if(filecpy.exists()) {
 				System.out.print("test copy already exists. Preparing to delete ...");
 				filecpy.delete();
-				System.out.println(" [OK]");
+				logger.debug(" [OK]");
 			}
 			
 			filecpy = null;
@@ -133,7 +143,7 @@ public class CSVParserTest {
 			ExtendedFile file = new ExtendedFile("files/test.csv");
 			file.copy("files/test_COPY.csv");
 			if(!file.exists()) {
-				System.out.println("File test_COPY.csv has not been created.");
+				logger.debug("File test_COPY.csv has not been created.");
 				fail();
 			}
 			
@@ -164,7 +174,7 @@ public class CSVParserTest {
 		CSVParserTransformer csvparsertransformer = new CSVParserTransformerNormalization(csvparser);
 		csvparsertransformer.debug();
 		
-		System.out.println("Waiting for the user to press a key...");
+		logger.debug("Waiting for the user to press a key...");
 		System.in.read();
 		
 		csvparser.reload();

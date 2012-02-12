@@ -1,5 +1,10 @@
 package test;
 
+import neuralnetwork.NeuralNetworkExecution;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import csvparser.UpdateCSVFileRunnable;
@@ -7,6 +12,12 @@ import csvparser.UpdateCSVFileRunnable;
 @SuppressWarnings("deprecation")
 public class UpdateCSVFileRunnableTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}	
 	@Test
 	public void launchTwoThreadsTest() {
 		

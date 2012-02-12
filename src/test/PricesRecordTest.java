@@ -2,12 +2,24 @@ package test;
 
 import static org.junit.Assert.*;
 
+import neuralnetwork.NeuralNetworkExecution;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import records.PricesRecord;
 
 public class PricesRecordTest {
 
+	Logger logger = Logger.getLogger(NeuralNetworkExecution.class);
+	
+	@BeforeClass
+	public static void setUp() {
+		DOMConfigurator.configure("xml/Test.xml");
+	}
+	
 	@Test
 	public void test() {
 		PricesRecord pricesrecord = new PricesRecord();

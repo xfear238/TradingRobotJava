@@ -2,9 +2,10 @@ package main;
 
 import java.io.FileInputStream;
 import java.util.Properties;
+
+import neuralnetwork.NeuralModeExecutionEnum;
 import robot.TradingRobot;
 import robot.TradingRobotFactory;
-import utils.NeuralModeExecutionEnum;
 import utils.Utils;
 
 public class MainProperties {
